@@ -1,6 +1,8 @@
 import junit.framework.TestCase;
 import org.example.MyArrayList;
 
+import java.util.Comparator;
+
 public class MyArrayListTest extends TestCase {
 
     MyArrayList<Integer> myArrayList;
@@ -50,6 +52,7 @@ public class MyArrayListTest extends TestCase {
     public void testInsert() {
 
         myArrayList.insert(777, 0);
+        assertEquals(Integer.valueOf(777), myArrayList.get(0));
         assertEquals(Integer.valueOf(33), myArrayList.get(1));
         myArrayList2.insert("Огурцов", 3);
         assertEquals("Огурцов", myArrayList2.get(3));
@@ -73,7 +76,9 @@ public class MyArrayListTest extends TestCase {
         assertEquals(Integer.valueOf(33), myArrayList.get(3));
         assertEquals(Integer.valueOf(34), myArrayList.get(4));
 
-        myArrayList2.quickSort(myArrayList2, 0, myArrayList2.length - 1);
+
+        Comparator<String> comparator2 = Comparator.comparing(String::toString);
+        myArrayList2.quickSort(myArrayList2, 0, myArrayList2.length - 1, comparator2);
         assertEquals("Абрикосов", myArrayList2.get(0));
         assertEquals("Бананов", myArrayList2.get(1));
         assertEquals("Вишневский", myArrayList2.get(2));

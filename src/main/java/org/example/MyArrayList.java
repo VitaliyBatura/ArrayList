@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Comparator;
+
 /**
  * MyArrayList is a resizable array implementation in Java. MyArrayList grows dynamically.
  * It has the following methods:
@@ -87,7 +89,7 @@ public class MyArrayList<T> {
      */
     public void insert(T element, int index) {
 
-        if (index < 0 || index >= length) {
+        if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException();
         }
         this.add(element);
@@ -145,6 +147,45 @@ public class MyArrayList<T> {
             quickSort(array, low, j);
         if (high > i)
             quickSort(array, i, high);
+    }
+
+    /**
+     * Sorts the elements of the array in O(N*logN) time.
+     * This method is using a recursive algorithm.
+     *
+     * @param array      to be sorted by the quick sort method.
+     * @param low        first index of the array to be sorted.
+     * @param high       last index of the array to be sorted.
+     * @param comparator the comparator to determine the order of the elements.
+     * @param <T>        the type of elements in the list.
+     */
+    public <T> void quickSort(MyArrayList<T> array, int low, int high, Comparator<? super T> comparator) {
+
+        if (array.length == 0)
+            return;
+        if (low >= high)
+            return;
+        T middle = array.get((int) (Math.random() * (high - low) + low));
+        int i = low;
+        int j = high;
+        while (i <= j) {
+            while (comparator.compare(array.get(i), middle) < 0) {
+                i++;
+            }
+            while (comparator.compare(array.get(j), middle) > 0) {
+                j--;
+            }
+            if (i <= j) {
+                T temp = array.get(i);
+                array.set(i, array.get(j));
+                array.set(j, temp);
+                i++;
+                j--;
+            }
+        }
+        if (low < j)
+            quickSort(array, low, j, comparator);
+        if (high > i) quickSort(array, i, high, comparator);
     }
 
     /**

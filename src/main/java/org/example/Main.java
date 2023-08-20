@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Comparator;
+
 /**
  * This is the Main class.
  *
@@ -18,7 +20,8 @@ public class Main {
         myArrayList.insert(49, 0);
         myArrayList.remove(4);
         myArrayList.remove(1);
-        myArrayList.quickSort(myArrayList, 0, myArrayList.length - 1);
+        Comparator<Integer> comparator = Comparator.comparing(Integer::valueOf);
+        myArrayList.quickSort(myArrayList, 0, myArrayList.length - 1, comparator);
         myArrayList.clear();
 
         for (int i = 0; i < myArrayList.length; i++) {
@@ -36,12 +39,18 @@ public class Main {
         myArrayList2.insert("Желудёв", 0);
         myArrayList2.remove(4);
         myArrayList2.remove(1);
-        myArrayList2.quickSort(myArrayList2, 0, myArrayList2.length - 1);
+        Comparator<String> comparator2 = Comparator.comparing(String::toString);
+        myArrayList2.quickSort(myArrayList2, 0, myArrayList2.length - 1, comparator2);
         myArrayList2.clear();
 
         for (int i = 0; i < myArrayList2.length; i++) {
             System.out.println(myArrayList2.get(i));
         }
         System.out.println(myArrayList2.length);
+
+        MyArrayList<Object> objectMyArrayList = new MyArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            objectMyArrayList.insert(new Object(), 0);
+        }
     }
 }
